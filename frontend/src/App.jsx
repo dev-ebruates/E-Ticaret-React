@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
-import ContactPage from "./pages/ContactPage";
+import AccountPage from "./pages/AccountPage";
+
 
 
 function App() {
@@ -8,7 +9,8 @@ function App() {
     <React.Fragment>
       {/* <HomePage /> */}
       {/* <ShopPage /> */}
-      <ContactPage/>
+      {/* <ContactPage/> */}
+      <AccountPage/>
     </React.Fragment>
   );
 }
