@@ -8,6 +8,7 @@ import './App.css'
 import Campaigns from './components/Campaigns/Campaigns'
 import Blogs from './components/Blogs/Blogs'
 import Brands from './components/Brands/Brands'
+import CampaignSingle from './components/CampaignSingle/CampaignSingle'
 
 function App() {
  
@@ -21,6 +22,7 @@ function App() {
      <Products/>
      <Blogs/>
      <Brands/>
+     <CampaignSingle/>
      <Policy/>
      <Footer/>
     </>
