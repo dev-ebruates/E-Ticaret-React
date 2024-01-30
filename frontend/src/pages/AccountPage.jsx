@@ -1,19 +1,12 @@
-
-import React from 'react'
-import Auth from '../components/Auth/Auth'
-import Header from "../components/Layout/Header/Header"
-import Policy from '../components/Layout/Policy/Policy'
-import Footer from '../components/Layout/Footer/Footer'
+import React from "react";
+import Auth from "../components/Auth/Auth";
 
 const AccountPage = () => {
-  return (<React.Fragment>
-     <Header/>
-    <Auth/>
-    <Policy/>
-    <Footer/>
-  </React.Fragment>
-   
-  )
-}
+  return (
+    <React.Fragment>
+      <Auth />
+    </React.Fragment>
+  );
+};
 
-export default AccountPage
+export default AccountPage;

@@ -1,21 +1,14 @@
-import React from "react"
-import Header from "../components/Layout/Header/Header"
-import Blogs from "../components/Blogs/Blogs"
-import Policy from "../components/Layout/Policy/Policy"
-import Footer from "../components/Layout/Footer/Footer"
+import React from "react";
+import Blogs from "../components/Blogs/Blogs";
 
 const BlogPages = () => {
   return (
     <React.Fragment>
-      <Header/>
       <div className="blog-page">
-         <Blogs/>
+        <Blogs />
       </div>
-     
-      <Policy/>
-      <Footer/>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default BlogPages
+export default BlogPages;
