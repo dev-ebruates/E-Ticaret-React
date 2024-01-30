@@ -1,9 +1,6 @@
 import React from "react";
 import "./App.css";
-import CartPage from "./pages/CartPage";
-
-
-
+import BlogDetailsPage from "./pages/BlogDetailsPage";
 
 function App() {
   return (
@@ -12,7 +9,9 @@ function App() {
       {/* <ShopPage /> */}
       {/* <ContactPage/> */}
       {/* <AccountPage/> */}
-      <CartPage/>
+      {/* <CartPage/> */}
+      {/* <BlogPages/> */}
+      <BlogDetailsPage />
     </React.Fragment>
   );
 }
