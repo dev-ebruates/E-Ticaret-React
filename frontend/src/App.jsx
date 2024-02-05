@@ -1,20 +1,22 @@
 import React from "react";
 import "./App.css";
-import { HomePage } from "./pages/HomePage";
+import ProductDetails from "./components/ProductDetails/ProductDetails";
+
+
 
 
 
 function App() {
   return (
     <React.Fragment>
-      <HomePage />
+      {/* <HomePage /> */}
       {/* <ShopPage /> */}
       {/* <ContactPage/> */}
       {/* <AccountPage/> */}
       {/* <CartPage/> */}
       {/* <BlogPages/> */}
       {/* <BlogDetailsPage /> */}
-      {/* <ProductDetailsPage/> */}
+      <ProductDetails/>
     </React.Fragment>
   );
 }
