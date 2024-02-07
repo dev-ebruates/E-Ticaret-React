@@ -19,11 +19,18 @@ const CartProvider = ({ children }) => {
     // setCardItems([...cartItems, product]); 1.yöntem
     setCardItems((prevItems) => [...prevItems, product]); //öncekileri al ona product ı ekle
   };
+  const removeFromCart =(itemId) =>{
+    const filteredCartItems = cartItems.filter((cartItem)=>{
+      return cartItem.id !== itemId;
+    })
+    setCardItems(filteredCartItems)
+  }
   return (
     <CartContext.Provider
       value={{
         cartItems,
         addToCart,
+        removeFromCart,
       }}
     >
       {children}
