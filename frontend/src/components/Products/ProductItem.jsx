@@ -1,16 +1,11 @@
+import { useContext } from "react";
 import "./ProductItem.css";
 import PropTypes from "prop-types";
+import { CartContext } from "../../context/CardProvider";
 
-
-const ProductItem = ({ productItem, setCardItems }) => {
-
-
-  const addToCart = (product) => {
-    
-    // setCardItems([...cartItems, product]); 1.yöntem
-    setCardItems((prevItems) => [...prevItems, product]) //öncekileri al ona product ı ekle
-  };
-
+const ProductItem = ({ productItem }) => {
+  
+const {addToCart} = useContext(CartContext)
 
   return (
     <div className="product-item glide__slide">
@@ -51,19 +46,22 @@ const ProductItem = ({ productItem, setCardItems }) => {
         </div>
         <span className="product-discount">-{productItem.discount}%</span>
         <div className="product-links">
-                  <button className="add-to-cart" onClick={()=>addToCart(productItem)}>
-                    <i className="bi bi-basket-fill"></i>
-                  </button>
-                  <button>
-                    <i className="bi bi-heart-fill"></i>
-                  </button>
-                  <a href="#" className="product-link">
-                    <i className="bi bi-eye-fill"></i>
-                  </a>
-                  <a href="#">
-                    <i className="bi bi-share-fill"></i>
-                  </a>
-                </div>
+          <button
+            className="add-to-cart"
+            onClick={() => addToCart(productItem)}
+          >
+            <i className="bi bi-basket-fill"></i>
+          </button>
+          <button>
+            <i className="bi bi-heart-fill"></i>
+          </button>
+          <a href="#" className="product-link">
+            <i className="bi bi-eye-fill"></i>
+          </a>
+          <a href="#">
+            <i className="bi bi-share-fill"></i>
+          </a>
+        </div>
       </div>
     </div>
   );
@@ -73,6 +71,5 @@ export default ProductItem;
 
 ProductItem.propTypes = {
   productItem: PropTypes.object,
-  setCardItems: PropTypes.object,
+  setCardItems: PropTypes.node,
 };
-
