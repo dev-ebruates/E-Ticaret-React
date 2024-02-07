@@ -11,9 +11,9 @@ const CartItem = ({cartItem, removeFromCart}) => {
         <i className="bi bi-x delete-cart" onClick={()=>removeFromCart(cartItem.id)} data-id="1"></i>
     </td>
     <td>{cartItem.name}</td>
-    <td>${cartItem.price.newPrice}</td>
-    <td className="product-quantity">1</td>
-    <td className="product-subtotal">${cartItem.price.newPrice}</td>
+    <td>${cartItem.price.newPrice.toFixed(2)}</td>
+    <td className="product-quantity">{cartItem.quantity}</td>
+    <td className="product-subtotal">${((cartItem.price.newPrice)*(cartItem.quantity)).toFixed(2)}</td>
    </tr>
   )
 }

@@ -15,9 +15,12 @@ const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   // console.log(cartItems);
-  const addToCart = (product) => {
+  const addToCart = (cartItem) => {
     // setCardItems([...cartItems, product]); 1.yöntem
-    setCardItems((prevItems) => [...prevItems, product]); //öncekileri al ona product ı ekle
+    setCardItems((prevItems) => [...prevItems, 
+      {...cartItem, 
+        quantity: cartItem.quantity ? cartItem.quantity : 1,},
+    ]); //öncekileri al ona product ı ekle
   };
   const removeFromCart =(itemId) =>{
     const filteredCartItems = cartItems.filter((cartItem)=>{
