@@ -1,25 +1,19 @@
-import React from "react";
 import "./App.css";
-import CartPage from "./pages/CartPage";
-
-
-
-
-
-
-
+import { Route, Routes } from "react-router-dom";
+import { HomePage } from "./pages/HomePage";
 function App() {
   return (
-    <React.Fragment>
+    <Routes>
+      <Route path="/" element={<HomePage/>}/>
       {/* <HomePage/> */}
       {/* <ShopPage /> */}
       {/* <ContactPage/> */}
       {/* <AccountPage/> */}
-      <CartPage/>
+      {/* <CartPage /> */}
       {/* <BlogPages/> */}
       {/* <BlogDetailsPage /> */}
       {/* <ProductDetails/> */}
-    </React.Fragment>
+    </Routes>
   );
 }
 

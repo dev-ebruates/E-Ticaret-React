@@ -5,11 +5,14 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
 import CartProvider from "./context/CardProvider.jsx";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <CartProvider>
-    <MainLayout>
-      <App />
-    </MainLayout>
-  </CartProvider>
+  <BrowserRouter>
+    <CartProvider>
+      <MainLayout>
+        <App />
+      </MainLayout>
+    </CartProvider>
+  </BrowserRouter>
 );
