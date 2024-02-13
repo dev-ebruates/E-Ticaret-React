@@ -19,7 +19,14 @@ await newCategory.save();
 
 //tüm kategorileri getirme (Read All)
 router.get("/", async(req,res)=> {
-  res.send("kategoriler getirildi");
+ 
+  try {
+    const categories = await Category.find();
+    res.status(200).json(categories);
+    console.log(categories)
+  } catch (error) {
+    res.status(500).json({error:"Server Error"})
+  }
 })
 
 module.exports = router;

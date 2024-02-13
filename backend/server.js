@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dontenv =  require("dotenv");
 const mainRoute = require("./routes/index.js");
+const logger = require("morgan")
 const port = 5555;
 const app = express();
 
@@ -18,6 +19,7 @@ const connect = async () => {
 }
 
 //middlewares gelen dataları node fa görmek için 
+app.use(logger("dev"));
 app.use(express.json());
 
 
