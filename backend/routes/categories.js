@@ -40,4 +40,26 @@ router.get("/:categoryId", async (req, res) => {
   }
 });
 
+//category güncelleme
+
+router.put("/:categoryId", async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
+    const updates = req.body;
+
+    // const existingCategory = await Category.findByID(categoryId);
+    // if (!existingCategory) {
+    //   return res.status(404).json({ error: "Category not found!" });
+    // }
+    const updatedCategory = await Category.findByIdAndUpdate(
+      categoryId,
+      updates,
+      { new: true }
+    );
+    res.status(200).json(updatedCategory);
+  } catch (error) {
+    res.status(500).json({ error: "Server Error" });
+  }
+});
+
 module.exports = router;
