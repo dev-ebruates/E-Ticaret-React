@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Category = require("../models/Category.js");
 
+//category oluşturma
 router.post("/", async (req, res) => {
   try {
     const { name, img } = req.body;

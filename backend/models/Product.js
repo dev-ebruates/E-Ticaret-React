@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const User = require("./User");
 
+
 const RewievsSchema = mongoose.Schema({
   text: { type: String, required: true },
   rating: { type: Number, required: true },
@@ -30,5 +31,5 @@ const ProductShema = mongoose.Schema(
   }
 );
 
-const Category = mongoose.model("Product", ProductShema);
+const Product = mongoose.model("Product", ProductShema);
 module.exports = Product;
