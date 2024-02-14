@@ -36,4 +36,31 @@ router.post("/register", async (req, res) => {
   }
 });
 
+
+
+//KULLANICI GİRİŞİ
+router.post("/login",async (req,res) => {
+try {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });   
+  if(!user){
+    return res.status(401).json({error: "Invalid email or password."});
+  }   
+  const isValidPassword = await bcryptjs.compare(password, user.password);
+  if(!isValidPassword){
+    return res.status(401).json({error: "Invalid email or password."});
+  }
+  res.status(200).json({
+    id: user._id,
+    email: user.email,
+    username: user.username,
+    password: user.password,
+    role: user.role,
+    avatar: user.avatar,
+  });
+} catch (error) {
+  res.status(500).json({ error: "Server Error" });
+}
+})
+
 module.exports = router;
