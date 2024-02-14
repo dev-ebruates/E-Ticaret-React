@@ -3,11 +3,16 @@ const bcryptjs = require("bcryptjs");
 const router = express.Router();
 const User = require("../models/User.js");
 
+const generateRandomAvatar = () => {
+  const ramdomAvatar = Math.floor(Math.random() * 71);
+  return `https://i.pravatar.cc/300/img${ramdomAvatar}`;
+};
+
 //kullanıcı oluşturma(create- user)
 router.post("/register", async (req, res) => {
   try {
     const { username, email, password } = req.body;
-
+    const defaultAvatar = generateRandomAvatar();
     //email adresi bir kere kullanılabilir
     //return yaptığımız için aşağıya girmeden devam edecek
     const existingUser = await User.findOne({ email });
@@ -20,6 +25,7 @@ router.post("/register", async (req, res) => {
       username,
       email,
       password: hashedPassword,
+      avatar: defaultAvatar,
     });
     console.log(newUser);
     //veritabanına kayıt ettik
