@@ -3,9 +3,13 @@ import "./Header.css";
 import Proptypes from  "prop-types";
 import { CartContext } from "../../../context/CardProvider";
 import { Link, useLocation } from "react-router-dom"
+
+
+
 const Header = ({ setIsSearchShow }) => {
 
   const { cartItems } = useContext(CartContext)
+  const user = localStorage.getItem("user" )
 
   //home shop da active kısımları yapabilmek için path yakalamamız lazım 
   const location = useLocation()
@@ -206,15 +210,31 @@ const Header = ({ setIsSearchShow }) => {
                 >
                   <i className="bi bi-search"></i>
                 </button>
-                <a href="#">
+                
+                {/* <a href="#">
                   <i className="bi bi-heart"></i>
-                </a>
+                </a> */}
                 <div className="header-cart">
                   <Link to={"/cart"} className="header-cart-link">
                     <i className="bi bi-bag"></i>
                     <span className="header-cart-count">{cartItems.length}</span>
                   </Link>
-                </div>
+                </div>{
+                  user && (
+                    <button
+                  className="search-button"
+                  onClick={() => {
+                    if(window.confirm("Çıkış yapmak istediğinize emin misiniz? ")){
+                      localStorage.removeItem("user");
+                      window.location.href = "/";
+                    }
+                  }}
+                >
+                  <i className="bi bi-box-arrow-right"></i>
+                </button>
+                  )
+                }
+                
               </div>
             </div>
           </div>
