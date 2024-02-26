@@ -164,7 +164,7 @@ if(userRole === "admin"){
             style={{
               padding:"24px  50px",
               minHeight:360,
-            }}>{children} EBRUuuuu</div>
+            }}>{children}</div>
           </Content>
         </Layout>
       </Layout>
