@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 
 
 const apiUrl = import.meta.env.VITE_API_BASE_URL;
-const AdminUserPage = () => {
+const UserPage = () => {
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -103,4 +103,4 @@ const AdminUserPage = () => {
   );
 };
 
-export default AdminUserPage;
+export default UserPage;

@@ -8,7 +8,8 @@ import CartPage from "./pages/CartPage";
 import AccountPage from "./pages/AccountPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import BlogDetailsPage from "./pages/BlogDetailsPage";
-import AdminUserPage from "./pages/admin/AdminUserPage";
+import UserPage from "./pages/Admin/UserPage";
+import CategoryPage from "./pages/Admin/Categories/CategoryPage";
 function App() {
   return (
     <Routes>
@@ -22,7 +23,9 @@ function App() {
       <Route path="/blog/:id" element={<BlogDetailsPage />} />
       {/*burada yıldız demek tüm admin sayfalarını direk yönlendirmek demek  */}
       <Route path="/admin/">
-        <Route path="users" element={<AdminUserPage />} />
+        <Route path="users" element={<UserPage />} />
+        <Route path="categories" element={<CategoryPage />} />
+
       </Route>
     </Routes>
   );
