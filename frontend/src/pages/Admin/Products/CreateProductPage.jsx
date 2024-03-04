@@ -81,6 +81,7 @@ const CreateProductPage = () => {
             },
           ]}
         >
+        {/* react ouill uygulandı */}
           <ReactQuill theme="snow"  style={{
             backgroundColor:"white"
           }}/>
