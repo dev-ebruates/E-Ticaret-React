@@ -3,8 +3,9 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-const apiUrl = import.meta.env.VITE_API_BASE_URL;
+
 const CategoryPage = () => {
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
