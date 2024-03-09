@@ -42,16 +42,6 @@ const ProductPage = () => {
       render: (text) => <span>%{text.discount}</span>,
     },
     {
-      title: "Colors",
-      dataIndex: "colors",
-      key: "colors",
-    },
-    {
-      title: "Sizes",
-      dataIndex: "sizes",
-      key: "sizes",
-    },
-    {
       title: "Kategori",
       dataIndex: "categoryName",
       key: "categoryName",

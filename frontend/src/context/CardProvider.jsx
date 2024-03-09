@@ -23,8 +23,10 @@ const CartProvider = ({ children }) => {
     ]); //öncekileri al ona product ı ekle
   };
   const removeFromCart =(itemId) =>{
+    if(itemId === undefined)
+      return cartItems;
     const filteredCartItems = cartItems.filter((cartItem)=>{
-      return cartItem.id !== itemId;
+      return (cartItem._id !== itemId);
     })
     setCardItems(filteredCartItems)
   }

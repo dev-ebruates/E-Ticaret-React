@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
 import "./Products.css";
-import ProductsData from "../../data.json";
 import Slider from "react-slick";
 import PropTypes from "prop-types";
+import { message } from "antd";
 
 function NextBtn({ onClick }) {
   return (
@@ -27,7 +27,29 @@ PrevBtn.propTypes = {
 };
 
 const Products = () => {
-  const [products] = useState(ProductsData);
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
+
+  const [products, setProducts] = useState([]);
+
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/api/products`);
+        if (response.ok) {
+          const data = await response.json();
+          setProducts(data);
+        } else {
+          message.error("Veri Getirme Başarısız.");
+        }
+      } catch (error) {
+        console.log("Veri Hatası:", error);
+      }
+    };
+
+    fetchProducts();
+  }, [apiUrl]);
+
 
 
   // const[cartItems, setCardItems] = useState([])
@@ -68,7 +90,7 @@ const Products = () => {
         <div className="product-wrapper product-carousel">
             <Slider {...sliderSettings}>
               {products.map((product) => (
-                <ProductItem productItem={product} key={product.id}  />
+                <ProductItem productItem={product} key={product._id}  />
               ))}
             </Slider>
           </div>

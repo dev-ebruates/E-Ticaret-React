@@ -6,7 +6,7 @@ const CartTotals = () => {
   const [fastCargoChecked,setFastCargoChecked]=useState(false)
   //burada quantity yani sepete o üründen kaç tane varsa onunla çarpacağız
   const cartItemTotals = cartItems.map((item) => {
- const itemTotal = (item.price.newPrice)*(item.quantity); 
+ const itemTotal = (item.price)*(item.quantity); 
  return itemTotal;
   });
   //reduce: toplama

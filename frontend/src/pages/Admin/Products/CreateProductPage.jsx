@@ -12,6 +12,7 @@ const CreateProductPage = () => {
   const [form] = Form.useForm();
 
   useEffect(() => {
+    console.log("Ürün oluşturuluyor")
     const fetchCategory = async () => {
       setLoading(true);
 
@@ -164,17 +165,17 @@ const CreateProductPage = () => {
           />
         </Form.Item>
         <Form.Item
-          label="Ürün Renkleri ( RGB kodları )"
+          label="Ürün Renkleri (RGB Kodları)"
           name="colors"
           rules={[
             {
               required: true,
-              message: "Lütfen ürünün  an az 1 rengini giriniz!",
+              message: "Lütfen en az 1 ürün rengi girin!",
             },
           ]}
         >
           <Input.TextArea
-            placeholder="Her bir RGB kodunu yeni satıra yazınız lütfen!"
+            placeholder="Her bir RGB kodunu yeni bir satıra yazın."
             autoSize={{ minRows: 4 }}
           />
         </Form.Item>
