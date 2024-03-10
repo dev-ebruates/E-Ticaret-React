@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Reviews from "../../Reviews/Reviews";
 import "./Tabs.css";
+import PropTypes from "prop-types"
 
-const Tabs = () => {
+const Tabs = ({singleProduct}) => {
   const [activeTab, setActiveTab] = useState("desc");
   return (
     <div className="single-tabs">
@@ -45,25 +46,11 @@ const Tabs = () => {
           }`}
           id="desc"
         >
-          <p>
-            Quisque varius diam vel metus mattis, id aliquam diam rhoncus. Proin
-            vitae magna in dui finibus malesuada et at nulla. Morbi elit ex,
-            viverra vitae ante vel, blandit feugiat ligula. Fusce fermentum
-            iaculis nibh, at sodales leo maximus a. Nullam ultricies sodales
-            nunc, in pellentesque lorem mattis quis. Cras imperdiet est in nunc
-            tristique lacinia. Nullam aliquam mauris eu accumsan tincidunt.
-            Suspendisse velit ex, aliquet vel ornare vel, dignissim a tortor.
-          </p>
-          <br />
-          <p>
-            Quisque varius diam vel metus mattis, id aliquam diam rhoncus. Proin
-            vitae magna in dui finibus malesuada et at nulla. Morbi elit ex,
-            viverra vitae ante vel, blandit feugiat ligula. Fusce fermentum
-            iaculis nibh, at sodales leo maximus a. Nullam ultricies sodales
-            nunc, in pellentesque lorem mattis quis. Cras imperdiet est in nunc
-            tristique lacinia. Nullam aliquam mauris eu accumsan tincidunt.
-            Suspendisse velit ex, aliquet vel ornare vel, dignissim a tortor.
-          </p>
+        <div
+        className="product-description"
+        // burada html kodlarını uygulayıp gösteriyor
+        dangerouslySetInnerHTML={{ __html: singleProduct.description }}
+      ></div>
         </div>
         <div
           className={`tab-panel-information content ${
@@ -86,14 +73,16 @@ const Tabs = () => {
               <tr>
                 <th>Size</th>
                 <td>
-                  <p>XXS, XS, S, M, L, XL, XXL</p>
+                  <p>{singleProduct.sizes.map((item,index)=><span key={index}>
+                    {item.toUpperCase()}
+                  <br/></span>)}</p>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
         <div>
-          <Reviews activeTab={activeTab} />
+          <Reviews activeTab={activeTab} singleProduct={singleProduct} />
         </div>
       </div>
     </div>
@@ -101,3 +90,7 @@ const Tabs = () => {
 };
 
 export default Tabs;
+Tabs.propTypes = {
+  singleProduct: PropTypes.object,
+};
+

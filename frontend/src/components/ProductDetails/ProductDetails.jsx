@@ -23,7 +23,7 @@ const ProductDetails = ({singleProduct}) => {
           {/* <!-- site main end -->
 
             <!-- tabs start --> */}
-          <Tabs/>
+          <Tabs singleProduct={singleProduct}/>
           {/* <!-- tabs end --> */}
         </div>
       </div>
