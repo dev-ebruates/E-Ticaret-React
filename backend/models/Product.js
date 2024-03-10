@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const User = require("./User");
 
 
-const RewievsSchema = mongoose.Schema({
+const ReviewsSchema = mongoose.Schema({
   text: { type: String, required: true },
   rating: { type: Number, required: true },
   //ilişkili veri tabanı yaptık
@@ -12,7 +12,7 @@ const ProductShema = mongoose.Schema(
   {
     name: { type: String, required: true },
     img: [{ type: String, required: true }],
-    reviews: [RewievsSchema],
+    reviews: [ReviewsSchema],
     description: { type: String, required: true },
     colors: [{ type: String, required: true }],
     sizes: [{ type: String, required: true }],
