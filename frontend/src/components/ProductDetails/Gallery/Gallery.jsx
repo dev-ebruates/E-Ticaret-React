@@ -1,5 +1,4 @@
 import "./Gallery.css";
-import productsData from "../../../data.json";
 import { useState } from "react";
 import Slider from "react-slick";
 import PropTypes from "prop-types";
@@ -39,8 +38,9 @@ PrevBtn.propTypes = {
   onClick: PropTypes.func,
 };
 
-const Gallery = () => {
-  const [activeImage, setActiveImage] = useState(productsData[0].img.thumbs[0]);
+const Gallery = ({singleProduct}) => {
+  const [activeImage, setActiveImage] = useState(singleProduct.img[0]);
+  console.log(singleProduct.img[0])
 
   const sliderSettings = {
     dots: false,
@@ -54,14 +54,14 @@ const Gallery = () => {
   return (
     <div className="product-gallery">
       <div className="single-image-wrapper">
-        <img src={`/${activeImage}`} id="single-image" alt="" />
+        <img src={`${activeImage}`} id="single-image" alt="" />
       </div>
       <div className="product-thumb">
         <div className="glide__track" data-glide-el="track">
           <ol className="gallery-thumbs glide__slides">
           
       <Slider {...sliderSettings}>
-      {productsData[0].img.thumbs.map((itemImg, index) => (
+      {singleProduct.img.map((itemImg, index) => (
               <li
                 key={index}
                 className="glide__slide glide__slide--active"
@@ -69,7 +69,7 @@ const Gallery = () => {
               >
                 <img
                 //buradaki "/" yönlendirme için 
-                  src={`/${itemImg}`}
+                  src={`${itemImg}`}
                   alt=""
                   className={`img-fluid ${
                     itemImg === activeImage ? "active" : ""
@@ -89,3 +89,6 @@ const Gallery = () => {
 };
 
 export default Gallery;
+Gallery.propTypes = {
+  singleProduct: PropTypes.object,
+}
