@@ -7,6 +7,9 @@ const ReviewsSchema = mongoose.Schema({
   rating: { type: Number, required: true },
   //ilişkili veri tabanı yaptık
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" ,required: true},
+},
+{
+  timestamps: true,
 });
 const ProductShema = mongoose.Schema(
   {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { message } from "antd";
 
-const ReviewForm = ({ singleProduct }) => {
+const ReviewForm = ({ singleProduct, setSingleProduct }) => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
   const [rating, setRating] = useState(0);
@@ -41,7 +41,7 @@ const ReviewForm = ({ singleProduct }) => {
       }
      
         const data = await res.json();
-        console.log(data);
+        setSingleProduct(data);
         setReview("");
         setRating(0);
         message.success("Yorum başarıyla eklendi");
@@ -142,4 +142,5 @@ const ReviewForm = ({ singleProduct }) => {
 export default ReviewForm;
 ReviewForm.propTypes = {
   singleProduct: PropTypes.object,
+  setSingleProduct: PropTypes.func,
 };

@@ -33,7 +33,7 @@ const [singleProduct, setSingleProduct] = useState(null);
   return singleProduct ? (
     <React.Fragment> 
       
-      <ProductDetails singleProduct={singleProduct}/> 
+      <ProductDetails singleProduct={singleProduct} setSingleProduct={setSingleProduct}/> 
       <CampaignSingle/>
     </React.Fragment>
   ) : <p>Ürün Yükleniyor</p>

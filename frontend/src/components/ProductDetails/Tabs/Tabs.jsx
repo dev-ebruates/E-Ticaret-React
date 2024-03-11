@@ -3,7 +3,7 @@ import Reviews from "../../Reviews/Reviews";
 import "./Tabs.css";
 import PropTypes from "prop-types"
 
-const Tabs = ({singleProduct}) => {
+const Tabs = ({singleProduct, setSingleProduct}) => {
   const [activeTab, setActiveTab] = useState("desc");
   return (
     <div className="single-tabs">
@@ -82,7 +82,7 @@ const Tabs = ({singleProduct}) => {
           </table>
         </div>
         <div>
-          <Reviews activeTab={activeTab} singleProduct={singleProduct} />
+          <Reviews activeTab={activeTab} singleProduct={singleProduct} setSingleProduct={setSingleProduct} />
         </div>
       </div>
     </div>
@@ -92,5 +92,6 @@ const Tabs = ({singleProduct}) => {
 export default Tabs;
 Tabs.propTypes = {
   singleProduct: PropTypes.object,
+  setSingleProduct: PropTypes.func,
 };
 
