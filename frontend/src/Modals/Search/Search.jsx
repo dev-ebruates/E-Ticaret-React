@@ -1,30 +1,37 @@
 import { message } from "antd";
 import "./Search.css";
 import PropTypes from "prop-types";
+import { useState } from "react";
 const Search = ({ isSearchShow, setIsSearchShow }) => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
+  const [searchResults, setSearchResults] = useState(null);
 
-  const handleSearch = async(e)=>{
+  const handleCloseModal = () => {
+    setIsSearchShow(false);
+    setSearchResults(null);
+  };
+
+  const handleSearch = async (e) => {
     e.preventDefault();
     const productName = e.target[0].value;
 
+    if (productName.trim().length === 0) {
+      message.warning("Boş karakter arayamazsınız!");
+      return;
+    }
+
     try {
-      const res = await fetch(
-        `${apiUrl}/api/products/search/${productName}`
-      );
-      if(!res.ok){
-        message.warning("Ürün getirme hatası...")
+      const res = await fetch(`${apiUrl}/api/products/search/${productName.trim()}`);
+      if (!res.ok) {
+        message.error("Ürün getirme hatası...");
         return;
       }
       const data = await res.json();
-
-      console.log(data);
+      setSearchResults(data);
     } catch (error) {
-      console.log(error)
-      
+      console.log(error);
     }
-
-  }
+  };
   return (
     <div className={`modal-search ${isSearchShow ? "show" : ""}`}>
       <div className="modal-wrapper">
@@ -42,42 +49,65 @@ const Search = ({ isSearchShow, setIsSearchShow }) => {
           <div className="search-heading">
             <h3>RESULTS FROM PRODUCT</h3>
           </div>
-          <div className="results">
-            <a href="#" className="result-item">
-              <img
-                src="img/products/product1/1.png"
-                className="search-thumb"
-                alt=""
-              />
-              <div className="search-info">
-                <h4>Analogue Resin Strap</h4>
-                <span className="search-sku">SKU: PD0016</span>
-                <span className="search-price">$108.00</span>
-              </div>
-            </a>
-            <a href="#" className="result-item">
-              <img
-                src="img/products/product2/1.png"
-                className="search-thumb"
-                alt=""
-              />
-              <div className="search-info">
-                <h4>Analogue Resin Strap</h4>
-                <span className="search-sku">SKU: PD0016</span>
-                <span className="search-price">$108.00</span>
-              </div>
-            </a>
+          <div
+            className="results"
+            style={{
+              display: `${
+                searchResults?.length === 0 || !searchResults ? "flex" : "grid"
+              }`,
+            }}
+          >
+           {!searchResults && (
+              <b
+                className="result-item"
+                style={{
+                  justifyContent: "center",
+                  width: "100%",
+                }}
+              >
+                Ürün Ara...
+              </b>
+            )}
+            {searchResults?.length === 0 && (
+              <a
+                href="#"
+                className="result-item"
+                style={{
+                  justifyContent: "center",
+                  width: "100%",
+                }}
+              >
+                😔Aradığınız Ürün Bulunamadı😔
+              </a>
+            )}
+            {searchResults?.length > 0 &&
+              searchResults?.map((resultItem) => (
+                <a href="#" className="result-item" key={resultItem._id}>
+                  <img
+                    src={resultItem.img[0]}
+                    className="search-thumb"
+                    alt=""
+                  />
+                  <div className="search-info">
+                    <h4>{resultItem.name}</h4>
+                    <span className="search-sku">SKU: PD0016</span>
+                    <span className="search-price">
+                      ${Number(resultItem.price.current).toFixed(2)}
+                    </span>
+                  </div>
+                </a>
+              ))}
           </div>
         </div>
         <i
           className="bi bi-x-circle"
           id="close-search"
-          onClick={() => setIsSearchShow(false)}
+          onClick={handleCloseModal}
         ></i>
       </div>
       <div
         className="modal-overlay"
-        onClick={() => setIsSearchShow(false)}
+        onClick={handleCloseModal}
       ></div>
     </div>
   );
@@ -86,6 +116,5 @@ const Search = ({ isSearchShow, setIsSearchShow }) => {
 export default Search;
 Search.propTypes = {
   isSearchShow: PropTypes.bool,
-  setIsSearchShow: PropTypes.func
-
-}
+  setIsSearchShow: PropTypes.func,
+};
