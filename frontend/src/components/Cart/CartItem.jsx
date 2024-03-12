@@ -1,6 +1,7 @@
 
 import PropTypes from  "prop-types"
 const CartItem = ({cartItem, removeFromCart}) => {
+
   
 
   return (
