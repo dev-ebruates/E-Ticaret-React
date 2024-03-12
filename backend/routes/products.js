@@ -53,11 +53,9 @@ router.put("/:productId", async (req, res) => {
       return res.status(404).json({ error: "Product not found." });
     }
 
-    const updatedProduct = await Product.findByIdAndUpdate(
-      productId,
-      updates,
-      { new: true }
-    );
+    const updatedProduct = await Product.findByIdAndUpdate(productId, updates, {
+      new: true,
+    });
 
     res.status(200).json(updatedProduct);
   } catch (error) {
@@ -82,6 +80,19 @@ router.delete("/:productId", async (req, res) => {
   }
 });
 
-
+//ürünleri isme göre arama
+router.get("/search/:productName", async (req, res) => {
+  try {
+    const productName = req.params.productName;
+    const products = await Product.find({
+      //burada regex  her bir karakterde arama için  a dedimi hemen a içinde olanları getirecek -- options ise büyük küçük harf duyarsızlığı için  
+      name: {$regex: productName, $options:"i"}
+    })
+    res.status(200).json(products);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Server error." });
+  }
+});
 
 module.exports = router;
