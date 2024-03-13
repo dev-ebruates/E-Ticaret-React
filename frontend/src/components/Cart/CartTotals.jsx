@@ -1,24 +1,68 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../../context/CardProvider";
+import { message } from "antd";
+import { loadStripe } from "@stripe/stripe-js";
 
 const CartTotals = () => {
-  const {cartItems}  =useContext(CartContext)
-  const [fastCargoChecked,setFastCargoChecked]=useState(false)
+  const { cartItems } = useContext(CartContext);
+  const [fastCargoChecked, setFastCargoChecked] = useState(false);
+  const stripePublicKey = import.meta.env.VITE_API_STRIPE_PUBLIC_KEY;
+  const apiUrl= import.meta.env.VITE_API_BASE_URL;
+
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
+
   //burada quantity yani sepete o üründen kaç tane varsa onunla çarpacağız
   const cartItemTotals = cartItems.map((item) => {
- const itemTotal = (item.price)*(item.quantity); 
- return itemTotal;
+    const itemTotal = item.price * item.quantity;
+    return itemTotal;
   });
   //reduce: toplama
-  var total=0;
-  const subTotals = cartItemTotals.reduce((previousValue,currentValue) => {
-    return (previousValue+currentValue)},0);
-    //hızlı kargo olursa 
-  if(fastCargoChecked){total=subTotals+15}
-  else{total=subTotals}
-   
-  
-  
+  var total = 0;
+  const subTotals = cartItemTotals.reduce((previousValue, currentValue) => {
+    return previousValue + currentValue;
+  }, 0);
+  //hızlı kargo olursa
+  const cargoFee = 15;
+  if (fastCargoChecked) {
+    total = subTotals + cargoFee;
+  } else {
+    total = subTotals;
+  }
+
+  const handlePayment = async () => {
+    if (!user) {
+      message.info("Ödeme yapabilmek için Giriş yapınız lütfen!!");
+    }
+    const body = {
+      products: cartItems,
+      user: user,
+      cargoFee: fastCargoChecked ? cargoFee : 0,
+    };
+
+    try {
+      const stripe = await loadStripe(stripePublicKey);
+      const res = await fetch(`${apiUrl}/api/payment`, {
+        method:"POST",
+        headers:{"Content-Type": "application/json"},
+        body:JSON.stringify(body)
+      })
+      if(res.ok){
+        return message.error("Ödeme işlemi başarısız oldu.")
+      }
+      const session = await res.json()
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      })
+      if(result.error){
+        throw new Error(result.error.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="cart-totals">
       <h2>Cart totals</h2>
@@ -37,7 +81,12 @@ const CartTotals = () => {
                 <li>
                   <label>
                     Fast Cargo: $15.00
-                    <input type="checkbox" id="fast-cargo" checked={fastCargoChecked}  onChange={()=>setFastCargoChecked(!fastCargoChecked)}/>
+                    <input
+                      type="checkbox"
+                      id="fast-cargo"
+                      checked={fastCargoChecked}
+                      onChange={() => setFastCargoChecked(!fastCargoChecked)}
+                    />
                   </label>
                 </li>
                 <li>
@@ -55,7 +104,9 @@ const CartTotals = () => {
         </tbody>
       </table>
       <div className="checkout">
-        <button className="btn btn-lg">Proceed to checkout</button>
+        <button className="btn btn-lg" onClick={handlePayment}>
+          Proceed to checkout
+        </button>
       </div>
     </div>
   );
