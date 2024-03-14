@@ -7,8 +7,7 @@ const CartTotals = () => {
   const { cartItems } = useContext(CartContext);
   const [fastCargoChecked, setFastCargoChecked] = useState(false);
   const stripePublicKey = import.meta.env.VITE_API_STRIPE_PUBLIC_KEY;
-  const apiUrl= import.meta.env.VITE_API_BASE_URL;
-
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const user = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))
     : null;
@@ -33,8 +32,9 @@ const CartTotals = () => {
 
   const handlePayment = async () => {
     if (!user) {
-      message.info("Ödeme yapabilmek için Giriş yapınız lütfen!!");
+      return message.info("Ödeme yapabilmek için giriş yapmalısınız!");
     }
+
     const body = {
       products: cartItems,
       user: user,
@@ -43,19 +43,24 @@ const CartTotals = () => {
 
     try {
       const stripe = await loadStripe(stripePublicKey);
+
       const res = await fetch(`${apiUrl}/api/payment`, {
-        method:"POST",
-        headers:{"Content-Type": "application/json"},
-        body:JSON.stringify(body)
-      })
-      if(res.ok){
-        return message.error("Ödeme işlemi başarısız oldu.")
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      if (!res.ok) {
+        return message.error("Ödeme işlemi başarısız oldu.");
       }
-      const session = await res.json()
+
+      const session = await res.json();
+
       const result = await stripe.redirectToCheckout({
         sessionId: session.id,
-      })
-      if(result.error){
+      });
+
+      if (result.error) {
         throw new Error(result.error.message);
       }
     } catch (error) {
