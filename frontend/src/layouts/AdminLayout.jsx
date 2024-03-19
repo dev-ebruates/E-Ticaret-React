@@ -13,20 +13,19 @@ import { useNavigate } from "react-router-dom";
 const { Sider, Header, Content } = Layout;
 const getUserRole = () => {
   const user = JSON.parse(localStorage.getItem("user"));
-  return user ? user.role : null ; 
-}
- 
+  return user ? user.role : null;
+};
 
 const AdminLayout = ({ children }) => {
   const navigate = useNavigate();
   const userRole = getUserRole();
 
-  
   const menuItems = [
     {
       key: "1",
       icon: <DashboardOutlined />,
       label: "Dashboard",
+      path: "/admin",
       onClick: () => {
         navigate(`/admin`);
       },
@@ -116,6 +115,7 @@ const AdminLayout = ({ children }) => {
       key: "12",
       icon: <ShoppingCartOutlined />,
       label: "Siparişler",
+      path:"/admin/orders",
       onClick: () => {
         navigate(`/admin/orders`);
       },
@@ -125,55 +125,73 @@ const AdminLayout = ({ children }) => {
       icon: <RollbackOutlined />,
       label: "Ana Sayfaya Git",
       onClick: () => {
-       window.location.href = "/"
+        window.location.href = "/";
       },
     },
   ];
-if(userRole === "admin"){
- return (
-    <div className="admin-layout">
-      <Layout
-        style={{
-          //vh ekran boyutu kadar demek m
-          minHeight: "100vh",
-        }}
-      >
-        <Sider>
-          <Menu
-            mode="vertical"
-            style={{
-              height: "100%",
-            }}
-            items={menuItems}
-          ></Menu>
-        </Sider>
-        <Layout>
-          <Header>
-            <div
+
+  const getActiveKey = () => {
+    for (const item of menuItems) {
+      if (item.children) {
+        for (const child of item.children) {
+          if(child.path === window.location.pathname)
+          return child.key
+        }
+      } else {
+        if(item.path === window.location.pathname)
+        return item.key
+      }
+    }
+  };
+  if (userRole === "admin") {
+    return (
+      <div className="admin-layout">
+        <Layout
+          style={{
+            //vh ekran boyutu kadar demek m
+            minHeight: "100vh",
+          }}
+        >
+          <Sider>
+            <Menu
+              mode="vertical"
               style={{
-                display: "flex",
-                justifyContent: "space-between",
-                color: "white",
+                height: "100%",
               }}
-            >
-              <h2>Admin Paneli</h2>
-            </div>
-          </Header>
-          <Content>
-            <div className="site-layout-background"
-            style={{
-              padding:"24px  50px",
-              minHeight:360,
-            }}>{children}</div>
-          </Content>
+              items={menuItems}
+              defaultSelectedKeys={[getActiveKey()]}
+            ></Menu>
+          </Sider>
+          <Layout>
+            <Header>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  color: "white",
+                }}
+              >
+                <h2>Admin Paneli</h2>
+              </div>
+            </Header>
+            <Content>
+              <div
+                className="site-layout-background"
+                style={{
+                  padding: "24px  50px",
+                  minHeight: 360,
+                }}
+              >
+                {children}
+              </div>
+            </Content>
+          </Layout>
         </Layout>
-      </Layout>
-    </div>
-  );
-}else{
- return  (window.location.href = "/");
-}
- 
+      </div>
+    );
+  } else {
+    return (window.location.href = "/");
+  }
 };
 
 export default AdminLayout;
