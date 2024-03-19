@@ -57,7 +57,7 @@ const ProductPage = () => {
             type="primary"
             onClick={() => navigate(`/admin/products/update/${record._id}`)}
           >
-            Düzenle
+            Güncelle
           </Button>
           <Popconfirm
             title="Siliniyor..."

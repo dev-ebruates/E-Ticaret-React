@@ -1,5 +1,5 @@
 import "./Gallery.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import PropTypes from "prop-types";
 
@@ -39,8 +39,14 @@ PrevBtn.propTypes = {
 };
 
 const Gallery = ({singleProduct}) => {
-  const [activeImage, setActiveImage] = useState(singleProduct.img[0]);
-  console.log(singleProduct.img[0])
+  const [activeImage, setActiveImage] = useState({
+    img: "",
+    imgIndex: 0,
+  });
+    useEffect(() => {
+      setActiveImage({ img: singleProduct.img[0], imgIndex: 0 });
+    }, [singleProduct.img]);
+
 
   const sliderSettings = {
     dots: false,
@@ -50,11 +56,12 @@ const Gallery = ({singleProduct}) => {
     nextArrow: <NextBtn />,
     prevArrow: <PrevBtn />,
   };
+  console.log()
 
   return (
     <div className="product-gallery">
       <div className="single-image-wrapper">
-        <img src={`${activeImage}`} id="single-image" alt="" />
+      <img src={`${activeImage.img}`} id="single-image" alt="" />
       </div>
       <div className="product-thumb">
         <div className="glide__track" data-glide-el="track">
