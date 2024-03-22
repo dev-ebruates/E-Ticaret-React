@@ -66,17 +66,17 @@ const ProductItem = ({ productItem }) => {
           >
             <i className="bi bi-basket-fill"></i>
           </button>
-          <button>
+          {/* <button>
             <i className="bi bi-heart-fill"></i>
-          </button>
+          </button> */}
           <Link to={`product/${productItem._id}`}
             className="product-link"
           >
             <i className="bi bi-eye-fill"></i>
           </Link>
-          <a href="#">
+          {/* <a href="#">
             <i className="bi bi-share-fill"></i>
-          </a>
+          </a> */}
         </div>
       </div>
     </div>
